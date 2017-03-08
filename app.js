@@ -1,5 +1,10 @@
 
+var request = { 
+    part: 'snippet',
+    q: $('#movies').val(),
+    key:"AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA" 
 
+};
 
 
 $.ajax({
@@ -7,8 +12,10 @@ $.ajax({
 		data: request,
 		dataType: "jsonp",//use jsonp to avoid cross origin issues
 		type: "GET",
-	})
-
+	 })
+        .done(function(result){
+            console.log(result);
+        })
 
 /*	
 

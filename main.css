@@ -2,14 +2,14 @@
 	margin: 0 auto;
 	width: 600px;
     padding: 10px;
+    border-radius: 5px;
     background-color: #59d177
 }
 .header, h4 {
     text-align: center;
 }
 
-#movies {
-    text-align: right;
-    padding-left: 60px;
+.movie-getter {
+    text-align: center;
     
 }
