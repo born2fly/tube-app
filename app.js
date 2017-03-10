@@ -1,24 +1,13 @@
 
+
+var getVideo = function(tags) {
+// the parameters we need to pass in our request to YouTube's API
 var request = { 
     part: 'snippet',
     q: $('#videos').val(),
     key:"AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA" 
-
-};
-
-var getVideo = function(tags) {
-	
-	// the parameters we need to pass in our request to YouTube's API
-	var request = { 
-		tagged: tags,
-		site: 'stackoverflow',
-		order: 'desc',
-		sort: 'creation'
 	};
-
 };
-
-
 
 $.ajax({
 		url: "https://www.googleapis.com/youtube/v3/search",
@@ -28,8 +17,7 @@ $.ajax({
 	 })
         .done(function(result){
             console.log(result);
-     });
-
+});
 
 	var searchResults = showSearchResults(tags, result.items.length);
          $('.search-results').html(searchResults);
@@ -37,13 +25,13 @@ $.ajax({
 			var answer = showAnswer(item);
 			$('.results').append(answer);
 			 console.log(item);
-		 })
+	  })
 
  .fail(function(jqXHR, error){
  var errorElem = showError(error);
 		$('.search-results').append(errorElem);
 		
-	 });
+});
 
 
 $(document).ready( function() {
