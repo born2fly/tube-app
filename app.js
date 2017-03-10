@@ -1,10 +1,23 @@
 
 var request = { 
     part: 'snippet',
-    q: $('#movies').val(),
+    q: $('#videos').val(),
     key:"AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA" 
 
 };
+
+var getVideo = function(tags) {
+	
+	// the parameters we need to pass in our request to YouTube's API
+	var request = { 
+		tagged: tags,
+		site: 'stackoverflow',
+		order: 'desc',
+		sort: 'creation'
+	};
+
+};
+
 
 
 $.ajax({
@@ -15,13 +28,34 @@ $.ajax({
 	 })
         .done(function(result){
             console.log(result);
-     })
+     });
+
+
+	var searchResults = showSearchResults(tags, result.items.length);
+         $('.search-results').html(searchResults);
+		 $.each(result.items, function(i, item) {
+			var answer = showAnswer(item);
+			$('.results').append(answer);
+			 console.log(item);
+		 })
 
  .fail(function(jqXHR, error){
  var errorElem = showError(error);
 		$('.search-results').append(errorElem);
+		
 	 });
 
+
+$(document).ready( function() {
+	$('.video-getter').submit( function(e){
+		e.preventDefault();
+		$('.results').html('');
+		
+		var tags = $(this).find("input[name='videos']").val();
+		getVideo(tags);
+	});
+
+});
 
 
 /*	
