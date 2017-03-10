@@ -1,13 +1,13 @@
 
 
-var getVideo = function(tags) {
+// var getVideo = function(tags) {
 // the parameters we need to pass in our request to YouTube's API
 var request = { 
     part: 'snippet',
     q: $('#videos').val(),
     key:"AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA" 
 	};
-};
+// };
 
 $.ajax({
 		url: "https://www.googleapis.com/youtube/v3/search",
