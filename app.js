@@ -10,12 +10,19 @@ var request = {
 $.ajax({
 		url: "https://www.googleapis.com/youtube/v3/search",
 		data: request,
-		dataType: "jsonp",//use jsonp to avoid cross origin issues
+		dataType: "jsonp",    //use jsonp to avoid cross origin issues
 		type: "GET",
 	 })
         .done(function(result){
             console.log(result);
-        })
+     })
+
+ .fail(function(jqXHR, error){
+ var errorElem = showError(error);
+		$('.search-results').append(errorElem);
+	 });
+
+
 
 /*	
 

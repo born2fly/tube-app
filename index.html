@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <title></title>
     <meta charset="UTF-8">
@@ -8,23 +8,28 @@
     <link rel="stylesheet" type="text/css" link href="main.css">
     <link href="normalize.css">
 </head>
-    
+
 <body>
-  <div class = "container">
-    <header class="header">
-        <h1>YouTube Video Search</h1>
-    </header> 
-<hr>
-       <main>
-           <h4>Enter a video search keyword related to a topic your are looking for.</h4> 
-				<form class="movie-getter">
-					<label for="movies">Keyword Search</label>
-					<input id="movies" type="text" placeholder="e.g. css tutorials, dogs, funny " name="movies" size="30"  required>
-					<input type="submit" value="Submit">
-				</form>
-      </main> 
-  </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>    
-        <script type = "text/javascript" src="app.js"></script>
+    <div class="container">
+        <header class="header">
+            <h1>YouTube Video Search</h1>
+        </header>
+        <hr>
+        <main>
+            <h4>Enter a video search keyword related to a topic your are looking for.</h4>
+            <form class="movie-getter">
+                <label for="movies">Keyword Search</label>
+                <input id="movies" type="text" placeholder="e.g. css tutorials, dogs, funny " name="movies" size="30" required>
+                <input type="submit" value="Submit">
+            </form>
+        </main>
+    </div>
+    <div class="results-container">
+        <div class="search-results"></div>
+        <div class="results"></div>
+    </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
 </body>
+
 </html>
