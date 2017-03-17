@@ -1,69 +1,64 @@
 
+// the parameters we need to pass in our request to YouTube's API --
+var getVideo = function (tags) {
+	var request = {
+		part: 'snippet',
+		q: tags,
+		key: "AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA",
+		maxResults: 10,
+		nextPageToken: "CAoQAA"
+};
 
-// var getVideo = function(tags) {
-// the parameters we need to pass in our request to YouTube's API
-var request = { 
-    part: 'snippet',
-    q: $('#videos').val(),
-    key:"AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA" 
-	};
-// };
-
+// ajax call -- set the parameters --
 $.ajax({
-		url: "https://www.googleapis.com/youtube/v3/search",
-		data: request,
-		dataType: "jsonp",    //use jsonp to avoid cross origin issues
-		type: "GET",
-	 })
-        .done(function(result){
-            console.log(result);
+	url: "https://www.googleapis.com/youtube/v3/search",
+	data: request,
+	dataType: "jsonp", //use jsonp to avoid cross origin issues --
+	type: "GET",
+})
+
+.done(function (result) {
+    // iterate thru results --
+	$.each(result.items, function (i, item) {
+	var answer = showVideo(item);
+	$('.results').append(answer);
+	//  console.log(item);
 });
-
-	var searchResults = showSearchResults(tags, result.items.length);
-         $('.search-results').html(searchResults);
-		 $.each(result.items, function(i, item) {
-			var answer = showAnswer(item);
-			$('.results').append(answer);
-			 console.log(item);
-	  })
-
- .fail(function(jqXHR, error){
- var errorElem = showError(error);
-		$('.search-results').append(errorElem);
-		
+	console.log(result);
+})
+	
+ //   if no results --
+.fail(function (jqXHR, error) {
+	var errorElem = showError(error);
+	$('.search-results').append(errorElem);
 });
+	console.log(tags);
+};
 
+// find requested items and display them --
+function showVideo(item) {
+	var videoID = item.id.videoId;
+	var videoThumb = item.snippet.thumbnails.medium.url;
+	var getTitle = item.snippet.title;
+	// console.log(videoID);
+	// console.log(videoThumb);
+	// console.log(getTitle);
 
-$(document).ready( function() {
-	$('.video-getter').submit( function(e){
+	// youtube endpoint --
+	return '<a href=https://youtube.com/watch?v=' + videoID + '>' + getTitle + '<br><img src="' + videoThumb + '"></a><br>';
+}
+
+// listener --
+$(document).ready(function () {
+	$('.video-getter').submit(function (e) {
 		e.preventDefault();
+
+		// reset results div --
 		$('.results').html('');
-		
-		var tags = $(this).find("input[name='videos']").val();
+
+		// read user input --
+		var tags = $(this).find("input[name='tags']").val();
 		getVideo(tags);
 	});
 
 });
-
-
-/*	
-
-.done(function(result){ //this waits for the ajax to return with a succesful promise 
-		console.log(result);
-		var searchResults = showSearchResults(request.tagged, result.items.length);
-
-		$('.search-results').html(searchResults);
-		//$.each is a higher order function. It takes an array and a function as an argument.
-		//The function is executed once for each item in the array.
-		$.each(result.items, function(i, item) {
-			var question = showQuestion(item);
-			$('.results').append(question);
-		});
-	})
-	
-	.fail(function(jqXHR, error){ //this waits for the ajax to return with an error promise object
-		var errorElem = showError(error);
-		$('.search-results').append(errorElem);
-	});
-    
-*/

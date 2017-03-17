@@ -3,12 +3,13 @@
 	width: 600px;
     padding: 10px;
     border-radius: 5px;
-    background-color: #59d177
+    background-color: #3da544
 }
 .header, h4 {
     text-align: center;
 }
-
-.movie-getter {
-    text-align: center;    
+.video-getter {
+    text-align: center;
 }
+
+label{color: #efdd9b;}
