@@ -6,10 +6,14 @@ var getVideo = function (tags) {
 		q: tags,
 		key: "AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA",
 		maxResults: 10,
-		nextPageToken: "CAoQAA"
+		nextPageToken: "CAoQAA",
+		prevPageToken: "CAoQAQ"
+		
 };
+		console.log(request.nextPageToken);
 
-// ajax call -- set the parameters --
+
+// ajax call -- set the parameters --  youtube endpoint --
 $.ajax({
 	url: "https://www.googleapis.com/youtube/v3/search",
 	data: request,
@@ -43,8 +47,6 @@ function showVideo(item) {
 	// console.log(videoID);
 	// console.log(videoThumb);
 	// console.log(getTitle);
-
-	// youtube endpoint --
 	return '<a href=https://youtube.com/watch?v=' + videoID + '>' + getTitle + '<br><img src="' + videoThumb + '"></a><br>';
 }
 
@@ -61,4 +63,17 @@ $(document).ready(function () {
 		getVideo(tags);
 	});
 
+	$('.nextpage').click(function (e) {
+	e.preventDefault();
+	console.log('you click nextpage');
 });
+	$('.prevpage').click(function (e) {
+	e.preventDefault();
+	console.log('you click prevpage');
+});
+
+});
+
+//----  work in progress -----------
+// var nextPage = request.nextPageToken;
+// var prevPage = request.prevPageToken;

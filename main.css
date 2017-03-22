@@ -11,5 +11,9 @@
 .video-getter {
     text-align: center;
 }
+.prevpage, .nextpage {
+    display: inline;
+    padding-left: 28%;   
+}
 
 label{color: #efdd9b;}
