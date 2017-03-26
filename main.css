@@ -17,3 +17,7 @@
 }
 
 label{color: #efdd9b;}
+
+.nextpage, .prevpage {
+    display: none;
+}

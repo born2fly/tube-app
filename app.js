@@ -1,41 +1,55 @@
-
 // the parameters we need to pass in our request to YouTube's API --
-var getVideo = function (tags) {
-	var request = {
-		part: 'snippet',
-		q: tags,
-		key: "AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA",
-		maxResults: 10,
-		nextPageToken: "CAoQAA",
-		prevPageToken: "CAoQAQ"
-		
-};
-		console.log(request.nextPageToken);
+var getVideo = function (tags, page) {
+	console.log(page);
+	var request = {};
+	if (page == "new") {
+		request = {
+			part: 'snippet',
+			q: tags,
+			key: "AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA",
+			maxResults: 10
+		};
+		$('.nextpage').show();
+	} else {
+		request = {
+			part: 'snippet',
+			q: tags,
+			key: "AIzaSyAPFRZbtrrI-aHcLX2R4kKx1JgsMzIMFtA",
+			maxResults: 10,
+			pageToken: page
+		};
+		$('.prevpage').show();
 
+	}
 
-// ajax call -- set the parameters --  youtube endpoint --
-$.ajax({
-	url: "https://www.googleapis.com/youtube/v3/search",
-	data: request,
-	dataType: "jsonp", //use jsonp to avoid cross origin issues --
-	type: "GET",
-})
+	console.log(request);
 
-.done(function (result) {
-    // iterate thru results --
-	$.each(result.items, function (i, item) {
-	var answer = showVideo(item);
-	$('.results').append(answer);
-	//  console.log(item);
-});
-	console.log(result);
-})
-	
- //   if no results --
-.fail(function (jqXHR, error) {
-	var errorElem = showError(error);
-	$('.search-results').append(errorElem);
-});
+	// ajax call -- set the parameters --  youtube endpoint --
+	$.ajax({
+			url: "https://www.googleapis.com/youtube/v3/search",
+			data: request,
+			dataType: "jsonp", //use jsonp to avoid cross origin issues --
+			type: "GET",
+		})
+
+		.done(function (result) {
+			$('.nextpage').attr('id', result.nextPageToken);
+			if(result.prevPageToken){}
+			$('.prevpage').attr('id', result.prevPageToken);
+			// iterate thru results --
+			$.each(result.items, function (i, item) {
+				var answer = showVideo(item);
+				$('.results').append(answer);
+				//  console.log(item);
+			});
+			console.log(result);
+		})
+
+		//   if no results --
+		.fail(function (jqXHR, error) {
+			var errorElem = showError(error);
+			$('.search-results').append(errorElem);
+		});
 	console.log(tags);
 };
 
@@ -52,6 +66,8 @@ function showVideo(item) {
 
 // listener --
 $(document).ready(function () {
+	var tags = '';
+	var pagetoken = '';
 	$('.video-getter').submit(function (e) {
 		e.preventDefault();
 
@@ -60,20 +76,24 @@ $(document).ready(function () {
 
 		// read user input --
 		var tags = $(this).find("input[name='tags']").val();
-		getVideo(tags);
+		getVideo(tags, "new");
 	});
 
 	$('.nextpage').click(function (e) {
-	e.preventDefault();
-	console.log('you click nextpage');
-});
+		e.preventDefault();
+		console.log(tags + 'you click nextpage');
+		$('.results').html(' ');
+		pageToken = $('.nextpage').attr('id');
+		getVideo(tags, pageToken);
+		// console.log('you click nextpage');
+	});
 	$('.prevpage').click(function (e) {
-	e.preventDefault();
-	console.log('you click prevpage');
-});
+		e.preventDefault();
+		console.log(tags + 'you click prevpage');
+		$('.results').html(' ');
+		pageToken = $('.prevpage').attr('id');
+		getVideo(tags, pageToken);
+		// console.log('you click prevpage');
+	});
 
 });
-
-//----  work in progress -----------
-// var nextPage = request.nextPageToken;
-// var prevPage = request.prevPageToken;
