@@ -10,7 +10,7 @@ var getVideo = function (tags, page) {
 			maxResults: 10
 		};
 		$('.nextpage').show();
-	} else {
+	}else{
 		request = {
 			part: 'snippet',
 			q: tags,
@@ -66,8 +66,8 @@ function showVideo(item) {
 
 // listener --
 $(document).ready(function () {
-	var tags = '';
-	var pagetoken = '';
+	var tags = ' ';
+	var pageToken = ' ';
 	$('.video-getter').submit(function (e) {
 		e.preventDefault();
 
@@ -75,13 +75,13 @@ $(document).ready(function () {
 		$('.results').html('');
 
 		// read user input --
-		var tags = $(this).find("input[name='tags']").val();
+		tags = $(this).find("input[name='tags']").val();
 		getVideo(tags, "new");
 	});
 
 	$('.nextpage').click(function (e) {
 		e.preventDefault();
-		console.log(tags + 'you click nextpage');
+		console.log(tags + ' you click nextpage');
 		$('.results').html(' ');
 		pageToken = $('.nextpage').attr('id');
 		getVideo(tags, pageToken);
@@ -89,7 +89,7 @@ $(document).ready(function () {
 	});
 	$('.prevpage').click(function (e) {
 		e.preventDefault();
-		console.log(tags + 'you click prevpage');
+		console.log(tags + ' you click prevpage');
 		$('.results').html(' ');
 		pageToken = $('.prevpage').attr('id');
 		getVideo(tags, pageToken);

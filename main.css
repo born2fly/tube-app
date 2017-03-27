@@ -16,8 +16,9 @@
     padding-left: 28%;   
 }
 
-label{color: #efdd9b;}
-
 .nextpage, .prevpage {
     display: none;
 }
+
+label{color: #efdd9b;}
+
