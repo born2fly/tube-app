@@ -93,7 +93,7 @@ $(document).ready(function () {
 		$('.results').html(' ');
 		pageToken = $('.prevpage').attr('id');
 		getVideo(tags, pageToken);
-		// console.log('you click prevpage');
+		
 	});
 
 });
